@@ -3,181 +3,739 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envio para o Google Planilhas</title>
+    <title>Votação - Peça Teatral Sing</title>
     <style>
         :root {
-            --primary-color: #1a73e8;
-            --success-color: #137333;
-            --error-color: #c5221f;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #202124;
+            --primary: #ffb703;
+            --primary-hover: #fb8500;
+            --bg: #0b090a;
+            --card-bg: rgba(26, 26, 36, 0.95);
+            --input-bg: #16161a;
+            --text: #fffffe;
+            --text-secondary: #94a1b2;
+            --border: #2cb67d;
+            --accent: #ff007f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(11, 9, 10, 0.85), rgba(11, 9, 10, 0.95)), url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text);
+            padding-bottom: 50px;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(229, 9, 20, 0.85), rgba(20, 20, 20, 0.95)), url('https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?q=80&w=1200&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 15px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+        }
+
+        .header-tag {
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+
+        header h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+        }
+
+        header p {
+            color: #e2e8f0;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
         }
 
         .container {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            text-align: center;
-            color: var(--primary-color);
+        .admin-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
         }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
+        .btn-admin {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
             font-size: 0.9rem;
         }
 
-        input {
+        .btn-admin:hover {
+            border-color: var(--text);
+            color: var(--text);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .admin-panel {
+            background-color: var(--card-bg);
+            border: 1px dashed var(--primary);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-panel h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr 1fr auto;
+            }
+            header h1 {
+                font-size: 3.5rem;
+            }
+            header h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        input[type="text"], input[type="file"], textarea, select {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #dadce0;
-            border-radius: 6px;
+            padding: 10px;
+            background-color: var(--input-bg);
+            border: 1px solid #3f3f46;
+            color: var(--text);
+            border-radius: 4px;
             font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
         }
 
-        input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        button.btn-primary {
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
         }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
+        button.btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .cast-list-admin {
+            margin-top: 15px;
+        }
+
+        .cast-item-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: var(--input-bg);
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .btn-delete {
+            background-color: #d32f2f;
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 10px;
         }
 
-        button:hover {
-            background-color: #1557b0;
+        /* Área de Resultados */
+        .results-box {
+            background-color: var(--input-bg);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px solid #3f3f46;
         }
 
-        button:disabled {
-            background-color: #bdc1c6;
-            cursor: not-allowed;
+        .results-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
         }
 
-        #statusMessage {
-            margin-top: 15px;
+        .feedback-group {
+            margin-bottom: 15px;
+        }
+
+        .feedback-target {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .feedback-item {
+            background-color: var(--card-bg);
+            padding: 10px;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 6px;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Seção do Elenco */
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        @media(min-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .grid-cast {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media(min-width: 600px) {
+            .grid-cast {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        .card-actor {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            font-size: 0.9rem;
-            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
         }
 
-        .success {
-            color: var(--success-color);
+        .card-actor img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #000;
         }
 
-        .error {
-            color: var(--error-color);
+        @media(min-width: 600px) {
+            .card-actor img {
+                height: 240px;
+            }
+        }
+
+        .card-info {
+            padding: 12px;
+        }
+
+        .card-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .card-info p {
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+
+        /* Formulário de Votação */
+        .vote-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        @media(min-width: 768px) {
+            .vote-section {
+                padding: 30px;
+            }
+        }
+
+        .vote-group {
+            margin-bottom: 20px;
+        }
+
+        .vote-group label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        @media(min-width: 768px) {
+            .vote-group label {
+                font-size: 1.1rem;
+            }
+        }
+
+        .vote-group label span {
+            color: var(--primary);
+        }
+
+        .vote-group .optional {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: normal;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit-vote {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-submit-vote:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Modal de Sucesso */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+        }
+
+        .modal-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .modal-content button {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="header-tag">Peça Teatral</div>
+        <h1>Sing</h1>
+        <h2>Avaliação e Premiação - Artista Revelação</h2>
+        <p>Direção: <strong>Michelle Rocha</strong></p>
+    </header>
+
     <div class="container">
-        <h2>Formulário</h2>
-        <form id="dataForm">
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+        <!-- Botão para abrir o Gerenciador -->
+        <div class="admin-toggle">
+            <button class="btn-admin" onclick="acessarAdmin()">🔒 Acesso Restrito (Administração)</button>
+        </div>
+
+        <!-- Painel do Gerenciador (Protegido) -->
+        <div class="admin-panel" id="adminPanel">
+            <h3>Gerenciador & Resultados</h3>
+            
+            <h4 style="margin: 15px 0 10px 0; color: var(--primary);">1. Cadastrar / Editar Ator</h4>
+            <form id="addActorForm" onsubmit="adicionarArtista(event)">
+                <div class="form-row">
+                    <input type="text" id="actorName" placeholder="Nome do Ator / Atriz" required>
+                    <input type="text" id="characterName" placeholder="Nome do Personagem" required>
+                    
+                    <!-- Seleção de Imagens Salvas no Site -->
+                    <select id="selectSavedImage">
+                        <option value="">-- Escolha uma Imagem Salva no Site --</option>
+                        <option value="mia.jpeg">mia.jpeg (Mia)</option>
+                        <option value="oliver.jpeg">oliver.jpeg (Oliver)</option>
+                        <option value="emily.jpeg">emily.jpeg (Emily)</option>
+                        <option value="anna.jpeg">anna.jpeg (Anna)</option>
+                        <option value="biel.jpeg">biel.jpeg (Biel)</option>
+                        <option value="nayeli.png">nayeli.png (Nayeli)</option>
+                    </select>
+
+                    <button type="submit" class="btn-primary">Cadastrar</button>
+                </div>
+            </form>
+
+            <div class="cast-list-admin" id="adminCastList">
+                <!-- Lista de artistas cadastrados -->
             </div>
 
-            <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required placeholder="seu@email.com">
+            <hr style="border: 0; border-top: 1px solid #3f3f46; margin: 25px 0;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4 style="color: var(--primary);">2. Resultados dos Votos Recebidos (Nuvem)</h4>
+                <button class="btn-primary" onclick="atualizarResultados()" style="padding: 6px 12px; font-size: 0.85rem;">🔄 Atualizar Dados</button>
             </div>
 
-            <button type="submit" id="submitBtn">Enviar</button>
-        </form>
-        <div id="statusMessage"></div>
+            <div class="results-box">
+                <h4>Votação: Melhor Ator / Atriz</h4>
+                <div id="resultsBestActor">Carregando...</div>
+
+                <h4 style="margin-top: 20px;">Votação: Melhor Peripécia</h4>
+                <div id="resultsPeripece">Carregando...</div>
+
+                <h4 style="margin-top: 20px;">Comentários / Elogios por Artista</h4>
+                <div id="resultsFeedbacks">Carregando...</div>
+            </div>
+        </div>
+
+        <!-- Galeria de Artistas -->
+        <h3 class="section-title">Elenco do Espetáculo</h3>
+        <div class="grid-cast" id="castGrid">
+            <!-- Os cards dos artistas aparecem aqui -->
+        </div>
+
+        <!-- Formulário de Votação -->
+        <div class="vote-section">
+            <h3 class="section-title">Enquete: Artista Revelação</h3>
+            
+            <form id="voteForm" onsubmit="enviarVoto(event)">
+                
+                <!-- Enquete 1: Melhor Ator/Atriz -->
+                <div class="vote-group">
+                    <label for="selectBestActor">1. Escolha o <span>Melhor Ator / Atriz</span>:</label>
+                    <select id="selectBestActor" required>
+                        <option value="">-- Selecione um artista --</option>
+                    </select>
+                </div>
+
+                <!-- Enquete 2: Melhor Peripécia -->
+                <div class="vote-group">
+                    <label for="selectPeripece">2. Escolha o artista da <span>Melhor Peripécia</span> em cena:</label>
+                    <select id="selectPeripece" required>
+                        <option value="">-- Selecione um artista --</option>
+                    </select>
+                </div>
+
+                <!-- Campo Opcional: Comentários Direcionados -->
+                <div class="vote-group">
+                    <label for="feedbackTarget">3. Deixar um recado ou elogio <span class="optional">(Opcional)</span>:</label>
+                    <select id="feedbackTarget" style="margin-bottom: 10px;">
+                        <option value="">-- Para quem é este comentário? --</option>
+                        <option value="Elenco Geral">Elenco Geral / Peça</option>
+                    </select>
+                    <textarea id="feedbackText" placeholder="Escreva aqui o seu comentário direcionado sobre a atuação..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-vote" id="btnSubmit">Enviar Avaliação</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h3>Voto Registrado!</h3>
+            <p>Sua avaliação para a peça teatral <strong>Sing</strong> foi enviada com sucesso para a nuvem.</p>
+            <button class="btn-primary" onclick="fecharModal()">Concluir</button>
+        </div>
     </div>
 
     <script>
-        // URL oficial configurada para o seu Apps Script
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-cfBLeubTMoOSVVRcTVtBXqAA20lqh0BZBZngQzN5RLTOnB_8DrLgx6ve7GqG8I0B8w/exec";
+        const SENHA_ADMIN = "admin123";
+        const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbz-cfBLeubTMoOSVVRcTVtBXqAA20lqh0BZBZngQzN5RLTOnB_8DrLgx6ve7GqG8I0B8w/exec";
 
-        const form = document.getElementById('dataForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const statusMessage = document.getElementById('statusMessage');
+        // ELENCO PRÉ-CADAISTRADO DE FÁBRICA
+        const elencoPadrao = [
+            { id: 1, nome: "Mia", personagem: "Personagem da Mia", foto: "mia.jpeg" },
+            { id: 2, nome: "Oliver", personagem: "Personagem do Oliver", foto: "oliver.jpeg" },
+            { id: 3, nome: "Emily", personagem: "Personagem da Emily", foto: "emily.jpeg" },
+            { id: 4, nome: "Anna", personagem: "Personagem da Anna", foto: "anna.jpeg" },
+            { id: 5, nome: "Biel", personagem: "Personagem do Biel", foto: "biel.jpeg" },
+            { id: 6, nome: "Nayeli", personagem: "Personagem da Nayeli", foto: "nayeli.png" }
+        ];
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        let artistas = JSON.parse(localStorage.getItem('sing_artistas'));
+        if (!artistas || artistas.length === 0) {
+            artistas = elencoPadrao;
+            localStorage.setItem('sing_artistas', JSON.stringify(artistas));
+        }
 
-            // Desabilita o botão e mostra status de carregamento
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Enviando...';
-            statusMessage.textContent = '';
-            statusMessage.className = '';
+        function acessarAdmin() {
+            const panel = document.getElementById('adminPanel');
+            
+            if (panel.classList.contains('active')) {
+                panel.classList.remove('active');
+                return;
+            }
 
-            // Coleta os dados dos inputs do formulário
-            const formData = new FormData(form);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
+            const senhaDigitada = prompt("Digite a senha do administrador para acessar os resultados e o gerenciamento:");
+            
+            if (senhaDigitada === SENHA_ADMIN) {
+                panel.classList.add('active');
+                atualizarResultados();
+            } else if (senhaDigitada !== null) {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function renderizar() {
+            const grid = document.getElementById('castGrid');
+            const adminList = document.getElementById('adminCastList');
+            const selectBestActor = document.getElementById('selectBestActor');
+            const selectPeripece = document.getElementById('selectPeripece');
+            const feedbackTarget = document.getElementById('feedbackTarget');
+
+            grid.innerHTML = '';
+            adminList.innerHTML = '';
+            selectBestActor.innerHTML = '<option value="">-- Selecione um artista --</option>';
+            selectPeripece.innerHTML = '<option value="">-- Selecione um artista --</option>';
+            
+            feedbackTarget.innerHTML = `
+                <option value="">-- Para quem é este comentário? --</option>
+                <option value="Elenco Geral">Elenco Geral / Peça</option>
+            `;
+
+            if (artistas.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1/-1;">Nenhum artista cadastrado ainda.</p>';
+            }
+
+            artistas.forEach((artista, index) => {
+                grid.innerHTML += `
+                    <div class="card-actor">
+                        <img src="${artista.foto}" alt="${artista.nome}" onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
+                        <div class="card-info">
+                            <h4>${artista.nome}</h4>
+                            <p><strong>${artista.personagem}</strong></p>
+                        </div>
+                    </div>
+                `;
+
+                adminList.innerHTML += `
+                    <div class="cast-item-admin">
+                        <span><strong>${artista.nome}</strong> (${artista.personagem}) - Foto: <em>${artista.foto}</em></span>
+                        <button class="btn-delete" onclick="removerArtista(${index})">Excluir</button>
+                    </div>
+                `;
+
+                const optionText = `${artista.nome} (como ${artista.personagem})`;
+                selectBestActor.innerHTML += `<option value="${artista.nome}">${optionText}</option>`;
+                selectPeripece.innerHTML += `<option value="${artista.nome}">${optionText}</option>`;
+                feedbackTarget.innerHTML += `<option value="${artista.nome}">${artista.nome} (${artista.personagem})</option>`;
             });
+        }
+
+        function adicionarArtista(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('actorName').value;
+            const personagem = document.getElementById('characterName').value;
+            const imagemSelecionada = document.getElementById('selectSavedImage').value;
+
+            if (!imagemSelecionada) {
+                alert("Por favor, escolha uma das imagens salvas no site!");
+                return;
+            }
+
+            artistas.push({
+                id: Date.now(),
+                nome: nome,
+                personagem: personagem,
+                foto: imagemSelecionada
+            });
+            
+            localStorage.setItem('sing_artistas', JSON.stringify(artistas));
+            document.getElementById('addActorForm').reset();
+            renderizar();
+        }
+
+        function removerArtista(index) {
+            artistas.splice(index, 1);
+            localStorage.setItem('sing_artistas', JSON.stringify(artistas));
+            renderizar();
+        }
+
+        async function enviarVoto(event) {
+            event.preventDefault();
+            
+            const btnSubmit = document.getElementById('btnSubmit');
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = "Enviando voto...";
+
+            const melhorAtor = document.getElementById('selectBestActor').value;
+            const melhorPeripece = document.getElementById('selectPeripece').value;
+            const destinatario = document.getElementById('feedbackTarget').value;
+            const textoComentario = document.getElementById('feedbackText').value.trim();
+
+            const novoVoto = {
+                melhorAtor,
+                melhorPeripece,
+                destinatario: textoComentario ? (destinatario || "Elenco Geral") : "",
+                comentario: textoComentario || ""
+            };
 
             try {
-                // Envia os dados usando o método POST (modo 'no-cors' para evitar bloqueios de CORS do Google Apps Script)
-                await fetch(SCRIPT_URL, {
+                await fetch(URL_PLANILHA, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(novoVoto)
                 });
 
-                statusMessage.textContent = 'Dados enviados com sucesso!';
-                statusMessage.className = 'success';
-                form.reset();
+                document.getElementById('successModal').style.display = 'flex';
             } catch (error) {
-                console.error('Erro:', error);
-                statusMessage.textContent = 'Erro ao enviar os dados. Tente novamente.';
-                statusMessage.className = 'error';
+                alert("Erro ao enviar o voto. Verifique sua conexão com a internet.");
             } finally {
-                // Reabilita o botão
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Enviar';
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = "Enviar Avaliação";
             }
-        });
-    </script>
+        }
 
+        function fecharModal() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('voteForm').reset();
+        }
+
+        async function atualizarResultados() {
+            const containerBestActor = document.getElementById('resultsBestActor');
+            const containerPeripece = document.getElementById('resultsPeripece');
+            const containerFeedbacks = document.getElementById('resultsFeedbacks');
+
+            containerBestActor.innerHTML = 'Buscando votos da nuvem...';
+            containerPeripece.innerHTML = 'Buscando votos da nuvem...';
+            containerFeedbacks.innerHTML = 'Buscando comentários...';
+
+            try {
+                const resposta = await fetch(URL_PLANILHA);
+                const votos = await resposta.json();
+
+                if (!votos || votos.length === 0) {
+                    containerBestActor.innerHTML = 'Nenhum voto registrado ainda.';
+                    containerPeripece.innerHTML = 'Nenhum voto registrado ainda.';
+                    containerFeedbacks.innerHTML = 'Nenhum comentário enviado.';
+                    return;
+                }
+
+                let contagemAtor = {};
+                let contagemPeripece = {};
+                let comentariosPorDestinatario = {};
+
+                votos.forEach(voto => {
+                    if (voto.melhorAtor) {
+                        contagemAtor[voto.melhorAtor] = (contagemAtor[voto.melhorAtor] || 0) + 1;
+                    }
+                    if (voto.melhorPeripece) {
+                        contagemPeripece[voto.melhorPeripece] = (contagemPeripece[voto.melhorPeripece] || 0) + 1;
+                    }
+                    
+                    if (voto.comentario && voto.comentario.trim() !== "") {
+                        const alvo = voto.destinatario || "Elenco Geral";
+                        if (!comentariosPorDestinatario[alvo]) {
+                            comentariosPorDestinatario[alvo] = [];
+                        }
+                        comentariosPorDestinatario[alvo].push(voto.comentario);
+                    }
+                });
+
+                containerBestActor.innerHTML = Object.keys(contagemAtor).length > 0 
+                    ? Object.entries(contagemAtor).map(([nome, qtd]) => `<div>• <strong>${nome}</strong>: ${qtd} voto(s)</div>`).join('')
+                    : 'Nenhum voto computado.';
+
+                containerPeripece.innerHTML = Object.keys(contagemPeripece).length > 0 
+                    ? Object.entries(contagemPeripece).map(([nome, qtd]) => `<div>• <strong>${nome}</strong>: ${qtd} voto(s)</div>`).join('')
+                    : 'Nenhum voto computado.';
+
+                if (Object.keys(comentariosPorDestinatario).length > 0) {
+                    containerFeedbacks.innerHTML = Object.entries(comentariosPorDestinatario)
+                        .map(([destinatario, listaComentarios]) => {
+                            const itens = listaComentarios.map(c => `<div class="feedback-item">"${c}"</div>`).join('');
+                            return `
+                                <div class="feedback-group">
+                                    <div class="feedback-target">📌 Para: ${destinatario}</div>
+                                    ${itens}
+                                </div>
+                            `;
+                        })
+                        .join('');
+                } else {
+                    containerFeedbacks.innerHTML = 'Nenhum comentário enviado.';
+                }
+
+            } catch (e) {
+                containerBestActor.innerHTML = 'Erro ao carregar da planilha.';
+                containerPeripece.innerHTML = 'Erro ao carregar da planilha.';
+                containerFeedbacks.innerHTML = 'Erro ao carregar da planilha.';
+            }
+        }
+
+        renderizar();
+    </script>
 </body>
 </html>
