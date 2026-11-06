@@ -233,6 +233,17 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
+        .instruction-banner {
+            background: rgba(255, 183, 3, 0.1);
+            border: 1px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
         @media(min-width: 768px) {
             .section-title {
                 font-size: 1.8rem;
@@ -261,6 +272,27 @@
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .card-actor:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .card-actor::after {
+            content: '⭐ Avaliar';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            color: var(--primary);
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--primary);
         }
 
         .card-actor img {
@@ -291,73 +323,7 @@
             font-size: 0.85rem;
         }
 
-        /* Formulário de Votação */
-        .vote-section {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        @media(min-width: 768px) {
-            .vote-section {
-                padding: 30px;
-            }
-        }
-
-        .vote-group {
-            margin-bottom: 20px;
-        }
-
-        .vote-group label {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        @media(min-width: 768px) {
-            .vote-group label {
-                font-size: 1.1rem;
-            }
-        }
-
-        .vote-group label span {
-            color: var(--primary);
-        }
-
-        .vote-group .optional {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: normal;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .btn-submit-vote {
-            width: 100%;
-            padding: 14px;
-            font-size: 1.1rem;
-            background-color: var(--primary);
-            color: #000;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .btn-submit-vote:hover {
-            background-color: var(--primary-hover);
-        }
-
-        /* Modal de Sucesso */
+        /* Modal Interativo de Votação por Artista */
         .modal {
             display: none;
             position: fixed;
@@ -366,27 +332,97 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-content {
             background-color: var(--card-bg);
             padding: 25px;
-            border-radius: 8px;
-            text-align: center;
-            max-width: 400px;
+            border-radius: 10px;
+            max-width: 480px;
             width: 100%;
             border: 1px solid var(--primary);
-            box-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+            box-shadow: 0 0 25px rgba(255, 183, 3, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        .modal-content h3 {
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #3f3f46;
+            padding-bottom: 10px;
+        }
+
+        .modal-header h3 {
             color: var(--primary);
-            margin-bottom: 10px;
+            font-size: 1.3rem;
         }
 
-        .modal-content button {
-            margin-top: 20px;
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--text);
+        }
+
+        .vote-question-group {
+            margin-bottom: 15px;
+        }
+
+        .vote-question-group label {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .peripecia-info-box {
+            background: rgba(44, 182, 125, 0.1);
+            border-left: 3px solid var(--border);
+            padding: 10px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            margin-top: 5px;
+            display: none;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .peripecia-toggle {
+            font-size: 0.8rem;
+            color: var(--border);
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .btn-submit-vote {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit-vote:hover {
+            background-color: var(--primary-hover);
         }
     </style>
 </head>
@@ -439,9 +475,7 @@
                 </div>
             </form>
 
-            <div class="cast-list-admin" id="adminCastList">
-                <!-- Lista de artistas cadastrados -->
-            </div>
+            <div class="cast-list-admin" id="adminCastList"></div>
 
             <hr style="border: 0; border-top: 1px solid #3f3f46; margin: 25px 0;">
 
@@ -463,54 +497,65 @@
         </div>
 
         <!-- Galeria de Artistas -->
+        <div class="instruction-banner">
+            👇 <strong>Toque ou clique na foto de qualquer integrante</strong> do elenco para abrir o formulário de avaliação dele!
+        </div>
+
         <h3 class="section-title">Elenco & Equipe do Espetáculo</h3>
         <div class="grid-cast" id="castGrid">
             <!-- Os cards dos artistas aparecem aqui -->
         </div>
+    </div>
 
-        <!-- Formulário de Votação -->
-        <div class="vote-section">
-            <h3 class="section-title">Enquete: Artista Revelação</h3>
+    <!-- Modal de Votação Direta por Artista -->
+    <div class="modal" id="artistVoteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalArtistTitle">Avaliar Artista</h3>
+                <button class="close-btn" onclick="fecharModalArtista()">&times;</button>
+            </div>
             
-            <form id="voteForm" onsubmit="enviarVoto(event)">
-                
-                <!-- Enquete 1: Melhor Ator/Atriz -->
-                <div class="vote-group">
-                    <label for="selectBestActor">1. Escolha o <span>Melhor Ator / Atriz</span>:</label>
-                    <select id="selectBestActor" required>
-                        <option value="">-- Selecione um artista --</option>
+            <form id="modalVoteForm" onsubmit="enviarVotoModal(event)">
+                <input type="hidden" id="selectedActorName">
+
+                <div class="vote-question-group">
+                    <label>⭐ Deseja votar em <strong id="labelActorName" style="color:var(--primary);"></strong> como o <strong>Melhor Ator / Atriz</strong>?</label>
+                    <select id="voteBestActorConfirm" required>
+                        <option value="">-- Escolha uma opção --</option>
+                        <option value="Sim">Sim, indicar como Melhor Ator/Atriz</option>
+                        <option value="Nao">Não nesta categoria</option>
                     </select>
                 </div>
 
-                <!-- Enquete 2: Melhor Peripécia -->
-                <div class="vote-group">
-                    <label for="selectPeripece">2. Escolha o artista da <span>Melhor Peripécia</span> em cena:</label>
-                    <select id="selectPeripece" required>
-                        <option value="">-- Selecione um artista --</option>
+                <div class="vote-question-group">
+                    <label>🎭 Deseja destacar a atuação dele(a) na categoria <strong>Melhor Peripécia</strong>?</label>
+                    <select id="votePeripeceConfirm" required>
+                        <option value="">-- Escolha uma opção --</option>
+                        <option value="Sim">Sim, teve a Melhor Peripécia</option>
+                        <option value="Nao">Não nesta categoria</option>
                     </select>
+                    <button type="button" class="peripecia-toggle" onclick="togglePeripeciaInfo()">❓ O que é Peripécia?</button>
+                    <div class="peripecia-info-box" id="peripeciaInfo">
+                        <strong>Peripécia:</strong> É algo inesperado, surpreendente ou uma reviravolta criativa que aconteceu na cena e chamou muita atenção!
+                    </div>
                 </div>
 
-                <!-- Campo Opcional: Comentários Direcionados -->
-                <div class="vote-group">
-                    <label for="feedbackTarget">3. Deixar um recado ou elogio <span class="optional">(Opcional)</span>:</label>
-                    <select id="feedbackTarget" style="margin-bottom: 10px;">
-                        <option value="">-- Para quem é este comentário? --</option>
-                        <option value="Elenco Geral">Elenco Geral / Peça</option>
-                    </select>
-                    <textarea id="feedbackText" placeholder="Escreva aqui o seu comentário direcionado sobre a atuação..."></textarea>
+                <div class="vote-question-group">
+                    <label>💬 Deixar um recado ou elogio para este artista <span style="font-weight:normal; color:var(--text-secondary);">(Opcional)</span>:</label>
+                    <textarea id="modalFeedbackText" placeholder="Escreva aqui o seu elogio ou comentário sobre a atuação..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit-vote" id="btnSubmit">Enviar Avaliação</button>
+                <button type="submit" class="btn-submit-vote" id="btnSubmitModal">Enviar Avaliação</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal de confirmação -->
+    <!-- Modal de Sucesso -->
     <div class="modal" id="successModal">
-        <div class="modal-content">
-            <h3>Voto Registrado!</h3>
-            <p>Sua avaliação para a peça teatral <strong>Sing</strong> foi enviada com sucesso para a nuvem.</p>
-            <button class="btn-primary" onclick="fecharModal()">Concluir</button>
+        <div class="modal-content" style="text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: 10px;">Voto Registrado com Sucesso!</h3>
+            <p style="color: #e2e8f0; margin-bottom: 20px;">Sua avaliação foi enviada para a nuvem da peça <strong>Sing</strong>.</p>
+            <button class="btn-primary" onclick="fecharSucesso()" style="width: 100%;">Concluir</button>
         </div>
     </div>
 
@@ -518,7 +563,6 @@
         const SENHA_ADMIN = "admin123";
         const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbz-cfBLeubTMoOSVVRcTVtBXqAA20lqh0BZBZngQzN5RLTOnB_8DrLgx6ve7GqG8I0B8w/exec";
 
-        // ELENCO E EQUIPE COM AJUSTES FINAIS
         const elencoPadrao = [
             { id: 1, nome: "Fernando", personagem: "Marcos & Norman", fotosSlideshow: ["fernando1.jpeg", "fernando2.jpeg", "fernando3.jpeg"] },
             { id: 2, nome: "Mimica", personagem: "Meanna", foto: "emily.jpeg" },
@@ -544,14 +588,11 @@
 
         function acessarAdmin() {
             const panel = document.getElementById('adminPanel');
-            
             if (panel.classList.contains('active')) {
                 panel.classList.remove('active');
                 return;
             }
-
             const senhaDigitada = prompt("Digite a senha do administrador para acessar os resultados e o gerenciamento:");
-            
             if (senhaDigitada === SENHA_ADMIN) {
                 panel.classList.add('active');
                 atualizarResultados();
@@ -563,19 +604,9 @@
         function renderizar() {
             const grid = document.getElementById('castGrid');
             const adminList = document.getElementById('adminCastList');
-            const selectBestActor = document.getElementById('selectBestActor');
-            const selectPeripece = document.getElementById('selectPeripece');
-            const feedbackTarget = document.getElementById('feedbackTarget');
 
             grid.innerHTML = '';
             adminList.innerHTML = '';
-            selectBestActor.innerHTML = '<option value="">-- Selecione um artista --</option>';
-            selectPeripece.innerHTML = '<option value="">-- Selecione um artista --</option>';
-            
-            feedbackTarget.innerHTML = `
-                <option value="">-- Para quem é este comentário? --</option>
-                <option value="Elenco Geral">Elenco Geral / Peça</option>
-            `;
 
             if (artistas.length === 0) {
                 grid.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1/-1;">Nenhum artista cadastrado ainda.</p>';
@@ -586,7 +617,7 @@
                 let slideshowAttr = artista.fotosSlideshow ? `data-slideshow='${JSON.stringify(artista.fotosSlideshow)}'` : '';
 
                 grid.innerHTML += `
-                    <div class="card-actor">
+                    <div class="card-actor" onclick="abrirModalArtista('${artista.nome}', '${artista.personagem}')">
                         <img src="${fotoSrc}" alt="${artista.nome}" ${slideshowAttr} onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
                         <div class="card-info">
                             <h4>${artista.nome}</h4>
@@ -601,15 +632,28 @@
                         <button class="btn-delete" onclick="removerArtista(${index})">Excluir</button>
                     </div>
                 `;
-
-                const optionText = `${artista.nome} (${artista.personagem})`;
-                selectBestActor.innerHTML += `<option value="${artista.nome}">${optionText}</option>`;
-                selectPeripece.innerHTML += `<option value="${artista.nome}">${optionText}</option>`;
-                feedbackTarget.innerHTML += `<option value="${artista.nome}">${artista.nome} (${artista.personagem})</option>`;
             });
         }
 
-        // Script para transição automática das fotos no card do Fernando
+        function abrirModalArtista(nome, personagem) {
+            document.getElementById('selectedActorName').value = nome;
+            document.getElementById('modalArtistTitle').textContent = `Avaliar: ${nome}`;
+            document.getElementById('labelActorName').textContent = `${nome} (${personagem})`;
+            document.getElementById('modalVoteForm').reset();
+            document.getElementById('peripeciaInfo').style.display = 'none';
+            document.getElementById('artistVoteModal').style.display = 'flex';
+        }
+
+        function fecharModalArtista() {
+            document.getElementById('artistVoteModal').style.display = 'none';
+        }
+
+        function togglePeripeciaInfo() {
+            const box = document.getElementById('peripeciaInfo');
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Slideshow automático do Fernando
         setInterval(() => {
             const imagens = document.querySelectorAll('.card-actor img[data-slideshow]');
             imagens.forEach(img => {
@@ -625,7 +669,6 @@
 
         function adicionarArtista(event) {
             event.preventDefault();
-
             const nome = document.getElementById('actorName').value;
             const personagem = document.getElementById('characterName').value;
             const imagemSelecionada = document.getElementById('selectSavedImage').value;
@@ -635,13 +678,7 @@
                 return;
             }
 
-            artistas.push({
-                id: Date.now(),
-                nome: nome,
-                personagem: personagem,
-                foto: imagemSelecionada
-            });
-            
+            artistas.push({ id: Date.now(), nome, personagem, foto: imagemSelecionada });
             localStorage.setItem('sing_artistas', JSON.stringify(artistas));
             document.getElementById('addActorForm').reset();
             renderizar();
@@ -653,23 +690,22 @@
             renderizar();
         }
 
-        async function enviarVoto(event) {
+        async function enviarVotoModal(event) {
             event.preventDefault();
-            
-            const btnSubmit = document.getElementById('btnSubmit');
-            btnSubmit.disabled = true;
-            btnSubmit.textContent = "Enviando voto...";
+            const btn = document.getElementById('btnSubmitModal');
+            btn.disabled = true;
+            btn.textContent = "Enviando...";
 
-            const melhorAtor = document.getElementById('selectBestActor').value;
-            const melhorPeripece = document.getElementById('selectPeripece').value;
-            const destinatario = document.getElementById('feedbackTarget').value;
-            const textoComentario = document.getElementById('feedbackText').value.trim();
+            const nomeAtor = document.getElementById('selectedActorName').value;
+            const votouAtor = document.getElementById('voteBestActorConfirm').value === "Sim";
+            const votouPeripece = document.getElementById('votePeripeceConfirm').value === "Sim";
+            const comentario = document.getElementById('modalFeedbackText').value.trim();
 
             const novoVoto = {
-                melhorAtor,
-                melhorPeripece,
-                destinatario: textoComentario ? (destinatario || "Elenco Geral") : "",
-                comentario: textoComentario || ""
+                melhorAtor: votouAtor ? nomeAtor : "",
+                melhorPeripece: votouPeripece ? nomeAtor : "",
+                destinatario: comentario ? nomeAtor : "",
+                comentario: comentario
             };
 
             try {
@@ -680,18 +716,18 @@
                     body: JSON.stringify(novoVoto)
                 });
 
+                fecharModalArtista();
                 document.getElementById('successModal').style.display = 'flex';
             } catch (error) {
-                alert("Erro ao enviar o voto. Verifique sua conexão com a internet.");
+                alert("Erro ao enviar voto. Verifique sua conexão.");
             } finally {
-                btnSubmit.disabled = false;
-                btnSubmit.textContent = "Enviar Avaliação";
+                btn.disabled = false;
+                btn.textContent = "Enviar Avaliação";
             }
         }
 
-        function fecharModal() {
+        function fecharSucesso() {
             document.getElementById('successModal').style.display = 'none';
-            document.getElementById('voteForm').reset();
         }
 
         async function atualizarResultados() {
@@ -699,9 +735,9 @@
             const containerPeripece = document.getElementById('resultsPeripece');
             const containerFeedbacks = document.getElementById('resultsFeedbacks');
 
-            containerBestActor.innerHTML = 'Buscando votos da nuvem...';
-            containerPeripece.innerHTML = 'Buscando votos da nuvem...';
-            containerFeedbacks.innerHTML = 'Buscando comentários...';
+            containerBestActor.innerHTML = 'Buscando...';
+            containerPeripece.innerHTML = 'Buscando...';
+            containerFeedbacks.innerHTML = 'Buscando...';
 
             try {
                 const resposta = await fetch(URL_PLANILHA);
@@ -719,18 +755,11 @@
                 let comentariosPorDestinatario = {};
 
                 votos.forEach(voto => {
-                    if (voto.melhorAtor) {
-                        contagemAtor[voto.melhorAtor] = (contagemAtor[voto.melhorAtor] || 0) + 1;
-                    }
-                    if (voto.melhorPeripece) {
-                        contagemPeripece[voto.melhorPeripece] = (contagemPeripece[voto.melhorPeripece] || 0) + 1;
-                    }
-                    
+                    if (voto.melhorAtor) contagemAtor[voto.melhorAtor] = (contagemAtor[voto.melhorAtor] || 0) + 1;
+                    if (voto.melhorPeripece) contagemPeripece[voto.melhorPeripece] = (contagemPeripece[voto.melhorPeripece] || 0) + 1;
                     if (voto.comentario && voto.comentario.trim() !== "") {
-                        const alvo = voto.destinatario || "Elenco Geral";
-                        if (!comentariosPorDestinatario[alvo]) {
-                            comentariosPorDestinatario[alvo] = [];
-                        }
+                        let alvo = voto.destinatario || "Elenco Geral";
+                        if (!comentariosPorDestinatario[alvo]) comentariosPorDestinatario[alvo] = [];
                         comentariosPorDestinatario[alvo].push(voto.comentario);
                     }
                 });
@@ -743,26 +772,19 @@
                     ? Object.entries(contagemPeripece).map(([nome, qtd]) => `<div>• <strong>${nome}</strong>: ${qtd} voto(s)</div>`).join('')
                     : 'Nenhum voto computado.';
 
-                if (Object.keys(comentariosPorDestinatario).length > 0) {
-                    containerFeedbacks.innerHTML = Object.entries(comentariosPorDestinatario)
-                        .map(([destinatario, listaComentarios]) => {
-                            const itens = listaComentarios.map(c => `<div class="feedback-item">"${c}"</div>`).join('');
-                            return `
-                                <div class="feedback-group">
-                                    <div class="feedback-target">📌 Para: ${destinatario}</div>
-                                    ${itens}
-                                </div>
-                            `;
-                        })
-                        .join('');
-                } else {
-                    containerFeedbacks.innerHTML = 'Nenhum comentário enviado.';
-                }
+                containerFeedbacks.innerHTML = Object.keys(comentariosPorDestinatario).length > 0 
+                    ? Object.entries(comentariosPorDestinatario).map(([destinatario, lista]) => `
+                        <div class="feedback-group">
+                            <div class="feedback-target">📌 Para: ${destinatario}</div>
+                            ${lista.map(c => `<div class="feedback-item">"${c}"</div>`).join('')}
+                        </div>
+                    `).join('')
+                    : 'Nenhum comentário enviado.';
 
             } catch (e) {
-                containerBestActor.innerHTML = 'Erro ao carregar da planilha.';
-                containerPeripece.innerHTML = 'Erro ao carregar da planilha.';
-                containerFeedbacks.innerHTML = 'Erro ao carregar da planilha.';
+                containerBestActor.innerHTML = 'Erro ao carregar dados.';
+                containerPeripece.innerHTML = 'Erro ao carregar dados.';
+                containerFeedbacks.innerHTML = 'Erro ao carregar dados.';
             }
         }
 
