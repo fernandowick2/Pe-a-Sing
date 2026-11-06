@@ -396,7 +396,6 @@
         <div class="header-tag">Peça Teatral</div>
         <h1>Sing</h1>
         <h2>Avaliação e Premiação - Artista Revelação</h2>
-        <p>Direção: <strong>Michelle Rocha</strong></p>
     </header>
 
     <div class="container">
@@ -417,25 +416,23 @@
                     
                     <select id="selectSavedImage">
                         <option value="">-- Escolha uma Imagem Salva no Site --</option>
-                        <option value="michelle.jpeg">michelle.jpeg (Michelle Rocha)</option>
-                        <option value="fernando.gif">fernando.gif (Fernando)</option>
+                        <option value="fernando1.jpeg">fernando1.jpeg (Fernando)</option>
                         <option value="emily.jpeg">emily.jpeg (Mimica)</option>
-                        <option value="nayeli.jpeg">nayeli.jpeg (Liz Nayeli)</option>
+                        <option value="nayeli.jpeg">nayeli.jpeg (Lyz Nayely)</option>
                         <option value="Gabi.jpeg">Gabi.jpeg (Gabi)</option>
-                        <option value="ster.jpeg">ster.jpeg (Ester)</option>
+                        <option value="ster.jpeg">ster.jpeg (Yumi)</option>
                         <option value="oliver.jpeg">oliver.jpeg (Oliver)</option>
                         <option value="sandra .jpeg">sandra .jpeg (Sandra Maria)</option>
-                        <option value="jão vitor.jpeg">jão vitor.jpeg (João Vitor)</option>
-                        <option value="denner.jpg">denner.jpg (Denner)</option>
+                        <option value="jão vitor.jpeg">jão vitor.jpeg (J.V)</option>
+                        <option value="denner2.jpeg">denner2.jpeg (Denner Santos)</option>
                         <option value="paloma.jpeg">paloma.jpeg (Paloma)</option>
                         <option value="ana.jpeg">ana.jpeg (Ana)</option>
-                        <option value="Mel.jpeg">Mel.jpeg (Mel)</option>
+                        <option value="Mel.jpeg">Mel.jpeg (Mel Visconti)</option>
                         <option value="Carol.jpeg">Carol.jpeg (Cacau Marques)</option>
-                        <option value="agnes.jpeg">agnes.jpeg (Agnes)</option>
-                        <option value="mia.jpeg">mia.jpeg (Mia)</option>
-                        <option value="Flavio.jpeg">Flavio.jpeg (Flávio)</option>
+                        <option value="mia.jpeg">mia.jpeg (Mia Valeriano)</option>
+                        <option value="Flavio.jpeg">Flavio.jpeg (Estopim)</option>
                         <option value="samuel.jpeg">samuel.jpeg (Samuel)</option>
-                        <option value="biel.jpeg">biel.jpeg (Gabriel Rodrigues)</option>
+                        <option value="biel.jpeg">biel.jpeg (Gabriell Rodrigues)</option>
                     </select>
 
                     <button type="submit" class="btn-primary">Cadastrar</button>
@@ -521,27 +518,25 @@
         const SENHA_ADMIN = "admin123";
         const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbz-cfBLeubTMoOSVVRcTVtBXqAA20lqh0BZBZngQzN5RLTOnB_8DrLgx6ve7GqG8I0B8w/exec";
 
-        // ELENCO E EQUIPE ATUALIZADOS COM NOMES ARTÍSTICOS
+        // ELENCO E EQUIPE COM NOMES ARTÍSTICOS E SLIDESHOW PARA O FERNANDO
         const elencoPadrao = [
-            { id: 1, nome: "Michelle Rocha", personagem: "Diretora Teatral", foto: "michelle.jpeg" },
-            { id: 2, nome: "Fernando", personagem: "Marcos & Norman", foto: "fernando.gif" },
-            { id: 3, nome: "Mimica", personagem: "Mena", foto: "emily.jpeg" },
-            { id: 4, nome: "Lyz Nayely", personagem: "Judith, Lance & Policiais", foto: "nayeli.jpeg" },
-            { id: 5, nome: "Gabi", personagem: "Mãe da Mena, Repórter & Policiais", foto: "Gabi.jpeg" },
-            { id: 6, nome: "Ester", personagem: "Ash", foto: "ster.jpeg" },
-            { id: 7, nome: "Oliver", personagem: "Buster Moon", foto: "oliver.jpeg" },
-            { id: 8, nome: "Sandra Maria", personagem: "Nana Nudelman", foto: "sandra .jpeg" },
-            { id: 9, nome: "João Vitor", personagem: "Johnny", foto: "jão vitor.jpeg" },
-            { id: 10, nome: "Denner", personagem: "Vô da Mena & Agiota", foto: "denner.jpg" },
-            { id: 11, nome: "Paloma", personagem: "Dona Kiki & Policiais", foto: "paloma.jpeg" },
-            { id: 12, nome: "Ana", personagem: "Mike", foto: "ana.jpeg" },
-            { id: 13, nome: "Mel", personagem: "Chefe dos Agiotas, Becky & Marquesinha", foto: "Mel.jpeg" },
-            { id: 14, nome: "Cacau Marques", personagem: "Gunter", foto: "Carol.jpeg" },
-            { id: 15, nome: "Agnes", personagem: "Auxiliar da Diretora (Bastidores)", foto: "agnes.jpeg" },
-            { id: 16, nome: "Mia", personagem: "Rosita", foto: "mia.jpeg" },
-            { id: 17, nome: "Flávio", personagem: "Eddie", foto: "Flavio.jpeg" },
-            { id: 18, nome: "Samuel", personagem: "Elenco", foto: "samuel.jpeg" },
-            { id: 19, nome: "Gabriel Rodrigues", personagem: "Rock & Gaspar", foto: "biel.jpeg" }
+            { id: 1, nome: "Fernando", personagem: "Marcos & Norman", fotosSlideshow: ["fernando1.jpeg", "fernando2.jpeg", "fernando3.jpeg"] },
+            { id: 2, nome: "Mimica", personagem: "Meanna", foto: "emily.jpeg" },
+            { id: 3, nome: "Lyz Nayely", personagem: "Judith, Lance & Policiais", foto: "nayeli.jpeg" },
+            { id: 4, nome: "Gabi", personagem: "Mãe da Meanna, Repórter & Policiais", foto: "Gabi.jpeg" },
+            { id: 5, nome: "Yumi", personagem: "Ash", foto: "ster.jpeg" },
+            { id: 6, nome: "Oliver", personagem: "Buster Moon", foto: "oliver.jpeg" },
+            { id: 7, nome: "Sandra Maria", personagem: "Nana Nudelman", foto: "sandra .jpeg" },
+            { id: 8, nome: "J.V", personagem: "Johnny", foto: "jão vitor.jpeg" },
+            { id: 9, nome: "Denner Santos", personagem: "Vô da Meanna & Agiota", foto: "denner2.jpeg" },
+            { id: 10, nome: "Paloma", personagem: "Dona Kiki & Policiais", foto: "paloma.jpeg" },
+            { id: 11, nome: "Ana", personagem: "Mike", foto: "ana.jpeg" },
+            { id: 12, nome: "Mel Visconti", personagem: "Chefe dos Agiotas, Becky & Marquesinha", foto: "Mel.jpeg" },
+            { id: 13, nome: "Cacau Marques", personagem: "Gunter", foto: "Carol.jpeg" },
+            { id: 14, nome: "Mia Valeriano", personagem: "Rosita", foto: "mia.jpeg" },
+            { id: 15, nome: "Estopim", personagem: "Eddie", foto: "Flavio.jpeg" },
+            { id: 16, nome: "Samuel", personagem: "Elenco", foto: "samuel.jpeg" },
+            { id: 17, nome: "Gabriell Rodrigues", personagem: "Rock & Gaspar", foto: "biel.jpeg" }
         ];
 
         let artistas = elencoPadrao;
@@ -587,9 +582,12 @@
             }
 
             artistas.forEach((artista, index) => {
+                let fotoSrc = artista.foto || (artista.fotosSlideshow ? artista.fotosSlideshow[0] : '');
+                let slideshowAttr = artista.fotosSlideshow ? `data-slideshow='${JSON.stringify(artista.fotosSlideshow)}'` : '';
+
                 grid.innerHTML += `
                     <div class="card-actor">
-                        <img src="${artista.foto}" alt="${artista.nome}" onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
+                        <img src="${fotoSrc}" alt="${artista.nome}" ${slideshowAttr} onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
                         <div class="card-info">
                             <h4>${artista.nome}</h4>
                             <p><strong>${artista.personagem}</strong></p>
@@ -599,7 +597,7 @@
 
                 adminList.innerHTML += `
                     <div class="cast-item-admin">
-                        <span><strong>${artista.nome}</strong> (${artista.personagem}) - Foto: <em>${artista.foto}</em></span>
+                        <span><strong>${artista.nome}</strong> (${artista.personagem})</span>
                         <button class="btn-delete" onclick="removerArtista(${index})">Excluir</button>
                     </div>
                 `;
@@ -610,6 +608,20 @@
                 feedbackTarget.innerHTML += `<option value="${artista.nome}">${artista.nome} (${artista.personagem})</option>`;
             });
         }
+
+        // Script para transição automática das fotos no card do Fernando
+        setInterval(() => {
+            const imagens = document.querySelectorAll('.card-actor img[data-slideshow]');
+            imagens.forEach(img => {
+                try {
+                    const listaFotos = JSON.parse(img.getAttribute('data-slideshow'));
+                    let atualSrc = img.getAttribute('src');
+                    let currentIndex = listaFotos.indexOf(atualSrc);
+                    let nextIndex = (currentIndex + 1) % listaFotos.length;
+                    img.setAttribute('src', listaFotos[nextIndex]);
+                } catch(e) {}
+            });
+        }, 3000);
 
         function adicionarArtista(event) {
             event.preventDefault();
