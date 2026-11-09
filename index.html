@@ -452,7 +452,7 @@
                     
                     <select id="selectSavedImage">
                         <option value="">-- Escolha uma Imagem Salva no Site --</option>
-                        <option value="fernando1.jpeg">fernando1.jpeg (Fernando)</option>
+                        <option value="fernando2.jpeg">fernando2.jpeg (Fernando)</option>
                         <option value="emily.jpeg">emily.jpeg (Mimica)</option>
                         <option value="nayeli.jpeg">nayeli.jpeg (Lyz Nayely)</option>
                         <option value="Gabi.jpeg">Gabi.jpeg (Gabi Flores)</option>
@@ -467,7 +467,6 @@
                         <option value="Carol.jpeg">Carol.jpeg (Cacau Marques)</option>
                         <option value="mia.jpeg">mia.jpeg (Mia Valeriano)</option>
                         <option value="Flavio.jpeg">Flavio.jpeg (Estopim)</option>
-                        <option value="Samuel.jpg">Samuel.jpg (Samuel)</option>
                         <option value="biel.jpeg">biel.jpeg (Gabriell Rodrigues)</option>
                     </select>
 
@@ -564,7 +563,7 @@
         const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbz-cfBLeubTMoOSVVRcTVtBXqAA20lqh0BZBZngQzN5RLTOnB_8DrLgx6ve7GqG8I0B8w/exec";
 
         const elencoPadrao = [
-            { id: 1, nome: "Fernando", personagem: "Marcos & Norman", fotosSlideshow: ["fernando1.jpeg", "fernando2.jpeg", "fernando3.jpeg"] },
+            { id: 1, nome: "Fernando", personagem: "Marcos & Norman", foto: "fernando2.jpeg" },
             { id: 2, nome: "Mimica", personagem: "Meena", foto: "emily.jpeg" },
             { id: 3, nome: "Lyz Nayely", personagem: "Judith, Lance & Policiais", foto: "nayeli.jpeg" },
             { id: 4, nome: "Gabi Flores", personagem: "Mãe da Meena, Repórter & Policiais", foto: "Gabi.jpeg" },
@@ -579,8 +578,7 @@
             { id: 13, nome: "Cacau Marques", personagem: "Gunter", foto: "Carol.jpeg" },
             { id: 14, nome: "Mia Valeriano", personagem: "Rosita", foto: "mia.jpeg" },
             { id: 15, nome: "Estopim", personagem: "Eddie", foto: "Flavio.jpeg" },
-            { id: 16, nome: "Samuel", personagem: "Elenco", foto: "Samuel.jpg" },
-            { id: 17, nome: "Gabriell Rodrigues", personagem: "Rock & Gaspar", foto: "biel.jpeg" }
+            { id: 16, nome: "Gabriell Rodrigues", personagem: "Rock & Gaspar", foto: "biel.jpeg" }
         ];
 
         let artistas = elencoPadrao;
@@ -613,12 +611,9 @@
             }
 
             artistas.forEach((artista, index) => {
-                let fotoSrc = artista.foto || (artista.fotosSlideshow ? artista.fotosSlideshow[0] : '');
-                let slideshowAttr = artista.fotosSlideshow ? `data-slideshow='${JSON.stringify(artista.fotosSlideshow)}'` : '';
-
                 grid.innerHTML += `
                     <div class="card-actor" onclick="abrirModalArtista('${artista.nome}', '${artista.personagem}')">
-                        <img src="${fotoSrc}" alt="${artista.nome}" ${slideshowAttr} onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
+                        <img src="${artista.foto}" alt="${artista.nome}" onerror="this.src='https://via.placeholder.com/300x350/16161a/ffb703?text=${encodeURIComponent(artista.nome)}'">
                         <div class="card-info">
                             <h4>${artista.nome}</h4>
                             <p><strong>${artista.personagem}</strong></p>
@@ -652,20 +647,6 @@
             const box = document.getElementById('peripeciaInfo');
             box.style.display = box.style.display === 'block' ? 'none' : 'block';
         }
-
-        // Slideshow automático do Fernando
-        setInterval(() => {
-            const imagens = document.querySelectorAll('.card-actor img[data-slideshow]');
-            imagens.forEach(img => {
-                try {
-                    const listaFotos = JSON.parse(img.getAttribute('data-slideshow'));
-                    let atualSrc = img.getAttribute('src');
-                    let currentIndex = listaFotos.indexOf(atualSrc);
-                    let nextIndex = (currentIndex + 1) % listaFotos.length;
-                    img.setAttribute('src', listaFotos[nextIndex]);
-                } catch(e) {}
-            });
-        }, 3000);
 
         function adicionarArtista(event) {
             event.preventDefault();
